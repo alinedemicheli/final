@@ -1,0 +1,53 @@
+/*
+SPDX-License-Identifier: CC-BY-4.0
+*/
+
+pragma solidity 0.8.4;
+
+contract  Escrow {
+    
+    struct Cliente{
+        string nome;
+        string sobrenome;
+        address payable enderecoCarteira;
+    }
+    
+    struct Banco {
+    string nomeBanco;
+    }
+    
+    struct ObradeArte {
+        string nomeObra;
+        string nomeArtista;
+    }
+    
+    uint public prazoFinalDeGuarda;
+    
+    mapping (uint => string) public Objetos;
+    
+    constructor (
+        
+    ) {
+        Objetos [1] = "Joias";
+        Objetos [2] = "Obras de Arte";
+    }
+    
+   
+    event Retirada (string nome, string sobrenome, uint prazoFinalDeGuarda);
+   
+   address public owner;
+
+    ObradeArte[] public obrasdearte;
+
+     function IncluirObradeArte(
+        string memory paramNomeObra,
+        string memory paramNomeArtista
+    ) 
+        external returns (bool) {
+        require(msg.sender == owner, "Somente o cliente tem permissao");
+        ObradeArte memory novaObradeArte = ObradeArte(paramNomeArtista, paramNomeObra);
+        obrasdearte.push(novaObradeArte);
+        return true;
+    }
+    }
+     
